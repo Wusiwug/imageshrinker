@@ -45,8 +45,11 @@ app.get('/shrinker/:path', (req, res) => {
     const ext = fileList.pop();
     let specialName = fileList[0];
     if (specialName.indexOf("~email") > 0) {
+        console.log("*** email image");
         specialName = specialName.replace("~email", "");
+        console.log("*** special name: ", specialName);
         let count = parseInt(getCount()) + 1;
+        console.log("*** count: ", count);
         updateCount(count);
     }
     const nameList = specialName.split("~");
