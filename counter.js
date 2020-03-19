@@ -6,9 +6,10 @@ const getCount = () => {
 
 const updateCount = (num) => {
     try {
-        fs.writeFileSync('./count.txt', num, 'utf8');
+        fs.writeFileSync('./count.txt', num.toString(), 'utf8');
         return "success"
     } catch (err) {
+        console.log(err)
         throw err
     }
 }
