@@ -43,11 +43,16 @@ app.get('/shrinker/:path', (req, res) => {
     let fileName = req.params.path;
     const fileList = fileName.split(".");
     const ext = fileList.pop();
-    const nameList = fileList[0].split("~");
-    const width = parseInt(nameList.pop());
+    let specialName = fileList[0];
+    if (specialName.indexOf("~email") > 0) {
+        specialName = specialName.replace("~email", "");
+        let count = parseInt(getCount()) + 1;
+        updateCount(count);
+    }
+    const nameList = specialName.split("~");
+    width = parseInt(nameList.pop());
     fileName = `${nameList[0]}.${ext}`;
-    let count = parseInt(getCount()) + 1;
-    updateCount(count);
+
     sharp(`./public/images/${fileName}`)
         .resize(width)
         .toBuffer()
