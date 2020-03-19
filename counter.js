@@ -9,7 +9,10 @@ const updateCount = (num) => {
     try {
         let path = `${__dirname}/count.txt`;
         console.log("*** path: ", path);
-        fs.writeFileSync(path, num.toString(), 'utf8');
+        fs.writeFile(path, num.toString(), (err) => {
+            if (err) console.log("*** write error: ", err);
+            else console.log("successfully updated the count file");
+        });
         return "success"
     } catch (err) {
         console.log(err)
