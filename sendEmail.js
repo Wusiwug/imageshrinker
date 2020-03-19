@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 require('dotenv/config')
 
-export const sendEmail = (emailInfo) => {
+const sendEmail = async (emailInfo) => {
     const { emailRecipients, emailBody } = emailInfo;
 
     let transporter = nodemailer.createTransport({
@@ -20,4 +20,8 @@ export const sendEmail = (emailInfo) => {
         subject: "ImgeStreamer CHG-HackDay 💻", // Subject line
         html: emailBody
     });
+}
+
+module.exports = {
+    sendEmail
 }

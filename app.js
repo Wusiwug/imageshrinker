@@ -3,7 +3,7 @@ const fs = require("fs");
 const serveIndex = require("serve-index");
 const sharp = require("sharp");
 const cors = require("cors");
-const sendEmail = require("./sendEmail");
+const { sendEmail } = require("./sendEmail");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
