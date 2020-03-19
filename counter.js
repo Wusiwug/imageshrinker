@@ -7,6 +7,7 @@ const getCount = () => {
 const updateCount = (num) => {
     console.log("*** updateCount")
     try {
+        console.log("*** num to write: ", num);
         let path = `${__dirname}/count.txt`;
         console.log("*** path: ", path);
         fs.writeFile(path, num.toString(), (err) => {
