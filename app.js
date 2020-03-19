@@ -4,11 +4,14 @@ const serveIndex = require("serve-index");
 const sharp = require("sharp");
 const cors = require("cors");
 const { sendEmail } = require("./sendEmail");
+const { getCount, updateCount } = require("./counter");
 
+require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(cors());
+app.use(express.json());
 app.options('*', cors());
 
 app.use('/images', express.static('public/images'));
@@ -32,6 +35,10 @@ app.post('/send', (req, res) => {
     });
 });
 
+app.get('/count', (req, res) => {
+    res.send(getCount());
+})
+
 app.get('/shrinker/:path', (req, res) => {
     let fileName = req.params.path;
     const fileList = fileName.split(".");
@@ -39,6 +46,8 @@ app.get('/shrinker/:path', (req, res) => {
     const nameList = fileList[0].split("~");
     const width = parseInt(nameList.pop());
     fileName = `${nameList[0]}.${ext}`;
+    let count = parseInt(getCount()) + 1;
+    updateCount(count);
     sharp(`./public/images/${fileName}`)
         .resize(width)
         .toBuffer()

@@ -1,8 +1,7 @@
 const nodemailer = require('nodemailer');
-require('dotenv/config')
 
 const sendEmail = async (emailInfo) => {
-    const { emailRecipients, emailBody } = emailInfo;
+    const { emailRecipients, emailBody, emailSubject } = emailInfo;
 
     let transporter = nodemailer.createTransport({
         host: process.env.EMAIL_SERVER_HOST,
@@ -17,9 +16,11 @@ const sendEmail = async (emailInfo) => {
     let info = await transporter.sendMail({
         from: '"ImgeStreamer 🚀" <imgstream@zyphex.com>', // sender address
         to: emailRecipients,
-        subject: "ImgeStreamer CHG-HackDay 💻", // Subject line
+        subject: emailSubject,
         html: emailBody
     });
+
+    console.log("*** email status: ", info);
 }
 
 module.exports = {
